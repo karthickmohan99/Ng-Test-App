@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+	<div class="container-fluid">
+
+
+		<a class="navbar-brand" href="#">DISPLAY</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+			<form class="d-flex ">
+				<input class="form-control me-2" type="text" placeholder="Search" (keyup)="applyFilter($event)"
+					oaria-label="Search">
+
+			</form>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<h1 class="text-center border border-dark heading text-center display-5">Table Data</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">API</th>
+				<th scope="col">Description</th>
+				<th scope="col">Category</th>
+				<th scope="col">Cors</th>
+			</tr>
+		</thead>
+		<div *ngIf="fallBackUi">
+			<h3 class="text-center">No Data Found</h3>
+		</div>
+		<tbody>
+			<tr *ngFor="let items of apiData | paginate
+		: {
+			itemsPerPage: tableSize,
+			currentPage: page,
+			totalItems: count
+		  }; let i = index">
+				<th scope="row">{{i+1}}</th>
+				<td>{{ items.API}}</td>
+				<td>
+
+					{{ items.Description}}
+				</td>
+
+				<td>{{ items.Category }}</td>
+				<td>{{ items.Cors}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center pt-4">
+		<pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+		</pagination-controls>
+	</div>
+</div>
